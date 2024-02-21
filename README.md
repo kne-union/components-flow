@@ -13,7 +13,7 @@
     ```
    为
     ```json
-    {"name": "@kne/project-name"}
+    {"name": "@kne-components/project-name"}
     ```
    添加
     ```json

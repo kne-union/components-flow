@@ -1,7 +1,7 @@
 {
-  "name": "components-flow",
+  "name": "@kne-components/components-flow",
   "version": "0.1.0",
-  "private": true,
+  "files": ["build"],
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "cross-env PORT=3001 MODULES_DEV_PUBLIC_URL=/ craco start",
-    "build": "cross-env COMPONENTS_NAME=components-name MODULES_DEV_PUBLIC_URL=/components-name  craco build",
+    "build": "cross-env COMPONENTS_NAME=components-flow MODULES_DEV_PUBLIC_URL=/components-flow  craco build",
     "test": "craco test --coverage",
     "eject": "react-scripts eject",
     "init": "npm i --legacy-peer-deps",
