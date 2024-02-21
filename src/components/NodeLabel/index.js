@@ -5,7 +5,7 @@ import { createWithRemoteLoader } from '@kne/remote-loader';
 import style from './style.module.scss';
 
 const NodeLabel = createWithRemoteLoader({
-  modules: ['components-core:Icon']
+  modules: ['Icon']
 })(({ remoteModules, data }) => {
   const [Icon] = remoteModules;
   const inputRef = useRef();
