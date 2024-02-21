@@ -1,10 +1,10 @@
 
-# NodeDelete
+# ConditionNode
 
 
 ### 概述
 
-删除节点
+条件节点
 
 
 ### 示例
@@ -13,12 +13,12 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _NodeDelete(@components/NodeDelete)
+- _ConditionNode(@components/ConditionNode)
 
 ```jsx
-const { default: NodeDelete } = _NodeDelete;
+const { default: ConditionNode } = _ConditionNode;
 const BaseExample = () => {
-  return <NodeDelete />;
+  return <ConditionNode data={{label: '条件1', content: ''}} />;
 };
 
 render(<BaseExample />);
