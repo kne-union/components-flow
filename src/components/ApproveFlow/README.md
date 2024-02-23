@@ -1,0 +1,33 @@
+
+# ApproveFlow
+
+
+### 概述
+
+创建或者编辑一个审批流程
+
+
+### 示例
+
+#### 示例代码
+
+- 这里填写示例标题
+- 这里填写示例说明
+- _Flow(@components/ApproveFlow)
+
+```jsx
+const { default: Flow } = _Flow;
+const BaseExample = () => {
+  return <Flow />;
+};
+
+render(<BaseExample />);
+
+```
+
+
+### API
+
+|属性名|说明|类型|默认值|
+|  ---  | ---  | --- | --- |
+

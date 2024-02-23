@@ -1,0 +1,209 @@
+.flow {
+  padding-inline-start: 0;
+  margin: 0;
+  display: flex;
+  --tree-line-height: var(--line-height, 20px);
+  --tree-line-width: var(--line-width, 1px);
+  --tree-line-color: var(--line-color, black);
+  --tree-line-border-radius: var(--line-border-radius, 5px);
+  --tree-node-padding: var(--node-padding, 5px);
+}
+
+.vertical-line {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: var(--tree-line-height);
+  box-sizing: border-box;
+}
+
+.children-container {
+  display: flex;
+  padding-inline-start: 0;
+  margin: 0;
+  padding-top: var(--tree-line-height);
+  position: relative;
+  flex: 1;
+
+  &:before {
+    @extend .vertical-line;
+    left: 50%;
+    width: 0;
+    border-left: var(--tree-line-width) solid var(--tree-line-color);
+  }
+}
+
+.end-container {
+  @extend .children-container;
+  padding-top: calc(var(--tree-line-height) * 2);
+
+  &:before {
+    top: var(--tree-line-height);
+  }
+}
+
+.node {
+  flex: auto;
+  list-style-type: none;
+  position: relative;
+  padding: var(--tree-line-height) var(--tree-node-padding) 0 var(--tree-node-padding);
+}
+
+.node-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.node-lines {
+  display: flex;
+  flex-direction: column;
+
+  &:before,
+  &:after {
+    @extend .vertical-line;
+    right: 50%;
+    width: 50%;
+    border-top: var(--tree-line-width) solid var(--tree-line-color);
+  }
+
+  &:after {
+    left: 50%;
+    border-left: var(--tree-line-width) solid var(--tree-line-color);
+  }
+
+  &:first-of-type {
+    &:before {
+      border: 0 none;
+    }
+
+    &:after {
+      border-radius: var(--tree-line-border-radius) 0 0 0;
+    }
+
+    > .end-lines {
+      &:before,
+      .end-lines-vertical:before {
+        border: 0 none;
+      }
+
+      &:after {
+        //border-radius: 0 0 0 var(--tree-line-border-radius);
+      }
+    }
+  }
+
+  &:last-of-type {
+    &:before {
+      border-right: var(--tree-line-width) solid var(--tree-line-color);
+      border-radius: 0 var(--tree-line-border-radius) 0 0;
+    }
+
+    &:after {
+      border: 0 none;
+    }
+
+    > .end-lines {
+      &:not(.has-children) {
+        &:before {
+          border-right: var(--tree-line-width) solid var(--tree-line-color);
+          //border-radius: 0 0 var(--tree-line-border-radius) 0;
+        }
+      }
+
+      &:before {
+      }
+
+      &:after,
+      .end-lines-vertical:after {
+        border: 0 none;
+      }
+
+      .end-lines-vertical:before {
+        border-right: var(--tree-line-width) solid var(--tree-line-color);
+      }
+    }
+  }
+
+  &:only-of-type {
+    padding: 0;
+
+    &:after,
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.children-container.has-next > .node-lines {
+  &:first-of-type .end-lines:after {
+    border-radius: 0 0 0 var(--tree-line-border-radius);
+  }
+
+  &:last-of-type > .end-lines,
+  &:last-of-type .node-lines:last-child > .end-lines,
+  .node-lines:last-child:not(:only-of-type) > .end-lines {
+    &:not(.has-children),
+    &.has-only-children {
+      &:before {
+        border-radius: 0 0 var(--tree-line-border-radius) 0;
+      }
+    }
+  }
+}
+
+.end-lines {
+  &:before,
+  &:after {
+    @extend .vertical-line;
+    top: 100%;
+    right: 50%;
+    width: 50%;
+    border-bottom: var(--tree-line-width) solid var(--tree-line-color);
+  }
+
+  &:after {
+    top: 100%;
+    left: 50%;
+    border-left: var(--tree-line-width) solid var(--tree-line-color);
+  }
+
+  &.has-children {
+    &:after {
+      border-left: none;
+    }
+  }
+
+  &:not(.has-children) {
+    display: block;
+    height: calc(100% - var(--tree-line-height));
+
+    .end-lines-vertical {
+      position: relative;
+      display: block;
+      height: 100%;
+
+      &:before {
+        @extend .vertical-line;
+        width: 50%;
+        left: 0;
+        top: 0;
+        height: 100%;
+      }
+
+      &:after {
+        @extend .vertical-line;
+        width: 50%;
+        left: 50%;
+        top: 0;
+        height: 100%;
+        border-left: var(--tree-line-width) solid var(--tree-line-color);
+      }
+    }
+  }
+}
+
+.root > .end-container .end-lines {
+  display: none;
+}
