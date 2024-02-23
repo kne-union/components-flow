@@ -1,10 +1,10 @@
 
-# Test
+# NodeDelete
 
 
 ### 概述
 
-
+删除节点
 
 
 ### 示例
@@ -13,12 +13,12 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _Test(@components/Test)
+- _NodeDelete(@components/NodeDelete)
 
 ```jsx
-const {default:Test} = _Test;
-const BaseExample = ()=>{
-    return <Test />;
+const { default: NodeDelete } = _NodeDelete;
+const BaseExample = () => {
+  return <NodeDelete />;
 };
 
 render(<BaseExample />);
