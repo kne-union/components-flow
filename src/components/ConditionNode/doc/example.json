@@ -9,6 +9,10 @@
         {
           "name": "_ConditionNode",
           "packageName": "@components/ConditionNode"
+        },
+        {
+          "name": "_antd",
+          "packageName": "antd"
         }
       ]
     }

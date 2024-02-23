@@ -44,6 +44,24 @@
     padding: 16px;
   }
 
+  .placeholder {
+    color: var(--font-color-grey-2);
+  }
+
+  .node-title-label {
+    width: max-content;
+  }
+
+  .ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--ellipse-rows, 1);
+    -webkit-box-orient: vertical;
+    flex-grow: 1;
+    word-break: break-all;
+  }
+
   .node-yiwen-icon {
     margin-left: 4px;
     color: #434343;

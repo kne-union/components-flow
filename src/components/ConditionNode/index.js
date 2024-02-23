@@ -18,7 +18,7 @@ const ConditionNode = createWithRemoteLoader({
           {get(data, 'type') !== 'default' ? (
             <NodeLabel {...props} />
           ) : (
-            <span className={style['ellipse']}>
+            <div className={classnames(style['node-title-label'], style['ellipse'])}>
               {label}
               {get(data, 'type') === 'default' && (
                 <Tooltip overlayClassName={style['tooltip']} content={<div className={classnames(style['tooltip-inner'], style['tooltip-inner-yiwen'])}>当未满足其他条件时，系统自动创建默认条件，确保条件分支完整</div>}>
@@ -27,7 +27,7 @@ const ConditionNode = createWithRemoteLoader({
                   </span>
                 </Tooltip>
               )}
-            </span>
+            </div>
           )}
           <div className={style['condition-right']}>
             <span className={classnames(style['condition-priority'], style['ellipse'])}>优先级1</span>
