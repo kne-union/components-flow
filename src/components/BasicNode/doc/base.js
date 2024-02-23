@@ -1,4 +1,4 @@
-const { default: ConditionNode } = _ConditionNode;
+const { default: BasicNode } = _BasicNode;
 const { Space } = _antd;
 
 const nodeWidth = 200;
@@ -14,8 +14,8 @@ const style = {
 const BaseExample = () => {
   return (
     <Space style={style}>
-      <ConditionNode data={{ label: '条件1', content: '' }} />
-      <ConditionNode data={{ label: '默认条件', content: '其他条件进入此流程', type: 'default' }} />
+      <BasicNode data={{ label: 'BasicNode1', content: '' }} />
+      <BasicNode data={{ label: 'BasicNode2', content: 'BasicNode' }} />
     </Space>
   );
 };
