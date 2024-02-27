@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import style from './style.module.scss';
 import FlowChart from '@components/FlowChart';
+import StartNode from '@components/StartNode';
 import BasicNode from '@components/BasicNode';
 import ConditionNode from '@components/ConditionNode';
 import { createWithRemoteLoader } from '@kne/remote-loader';
@@ -125,9 +126,9 @@ const ApproveFlow = () => {
       return (
         <FlowChart
           label={
-            <OptionsNode id="root" node={nodeData}>
+            <StartNode id="root" node={nodeData}>
               开始
-            </OptionsNode>
+            </StartNode>
           }
           next={<Node label={'结束'} />}
         >

@@ -96,3 +96,10 @@
     }
   }
 }
+
+.error-message {
+  color: #ff0000;
+  position: absolute;
+  left: 0;
+  top: calc(var(--node-height) + 4px);
+}

@@ -11,7 +11,7 @@ const DeleteIcon = createWithRemoteLoader({
       onClick={event => {
         event.preventDefault();
         event.stopPropagation();
-        console.log('on node delete...');
+        console.log('on node delete...', props);
       }}
     >
       <Icon type="icon-close-thin" size="16" />

@@ -14,8 +14,8 @@ const style = {
 const BaseExample = () => {
   return (
     <Space style={style}>
-      <StartNode data={{ label: 'StartNode1', content: '' }} />
-      <StartNode data={{ label: 'StartNode2', content: 'StartNode' }} />
+      <StartNode node={{ title: 'StartNode1', content: '' }} />
+      <StartNode node={{ title: 'StartNode2', content: 'StartNode' }} />
     </Space>
   );
 };

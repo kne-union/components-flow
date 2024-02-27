@@ -6,17 +6,17 @@ import style from './style.module.scss';
 
 const NodeLabel = createWithRemoteLoader({
   modules: ['Icon']
-})(({ remoteModules, data }) => {
+})(({ remoteModules, node, ...props }) => {
   const [Icon] = remoteModules;
   const inputRef = useRef();
   const [toggle, setToggle] = useState(false);
-  const [title, setTitle] = useState(data?.label);
-  const onUpdateNodeLabel = value => {
+  const [title, setTitle] = useState(node?.title);
+  const onUpdateNodeTitle = value => {
     setTitle(value);
   };
   useEffect(() => {
-    setTitle(data.label);
-  }, [data.label]);
+    setTitle(node.title);
+  }, [node.title]);
   useEffect(() => {
     if (toggle) {
       inputRef.current && inputRef.current.focus();
@@ -39,13 +39,13 @@ const NodeLabel = createWithRemoteLoader({
             onPressEnter={e => {
               e.preventDefault();
               e.stopPropagation();
-              onUpdateNodeLabel(e.target.value);
+              onUpdateNodeTitle(e.target.value);
               setToggle(false);
             }}
             onBlur={e => {
               e.preventDefault();
               e.stopPropagation();
-              onUpdateNodeLabel(e.target.value);
+              onUpdateNodeTitle(e.target.value);
               setToggle(false);
             }}
           />
