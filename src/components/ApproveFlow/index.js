@@ -15,7 +15,7 @@ const Node = FlowChart.Node;
 
 const OptionsNode = createWithRemoteLoader({
   modules: ['components-core:Icon', 'components-core:Tooltip']
-})(({ remoteModules, id, node, children }) => {
+})(({ remoteModules, id, children }) => {
   const [Icon, Tooltip] = remoteModules;
   const { appendNode } = useContext();
   return (
@@ -126,9 +126,9 @@ const ApproveFlow = () => {
       return (
         <FlowChart
           label={
-            <StartNode id="root" node={nodeData}>
-              开始
-            </StartNode>
+            <OptionsNode id={id}>
+              <StartNode node={nodeData} />
+            </OptionsNode>
           }
           next={<Node label={'结束'} />}
         >
