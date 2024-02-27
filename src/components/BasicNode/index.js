@@ -1,6 +1,6 @@
 import { createWithRemoteLoader } from '@kne/remote-loader';
 import DeleteIcon from '@components/DeleteIcon';
-import NodeLabel from '@components/NodeLabel';
+import NodeTitle from '@components/NodeTitle';
 import classnames from 'classnames';
 import style from './style.module.scss';
 
@@ -14,7 +14,7 @@ const BasicNode = createWithRemoteLoader({
     <div className={classnames(style['node-wrapper'], isError ? style['error'] : null)}>
       <div className={style['node']}>
         <div className={style['node-title']}>
-          <NodeLabel node={node} {...props} />
+          <NodeTitle node={node} {...props} />
           <DeleteIcon {...props} />
         </div>
         <div

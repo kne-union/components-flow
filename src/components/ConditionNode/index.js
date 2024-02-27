@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 import classnames from 'classnames';
-import NodeLabel from '@components/NodeLabel';
+import NodeTitle from '@components/NodeTitle';
 import DeleteIcon from '@components/DeleteIcon';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 
@@ -14,7 +14,7 @@ const ConditionNode = createWithRemoteLoader({
       <div className={style['node']}>
         <div className={style['node-title']}>
           {type !== 'default' ? (
-            <NodeLabel node={node} />
+            <NodeTitle node={node} />
           ) : (
             <div className={classnames(style['node-title-label'], style['ellipse'])}>
               {title}

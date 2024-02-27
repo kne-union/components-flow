@@ -1,5 +1,5 @@
 
-# NodeLabel
+# NodeTitle
 
 
 ### 概述
@@ -13,12 +13,12 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _NodeLabel(@components/NodeLabel)
+- _NodeTitle(@components/NodeTitle)
 
 ```jsx
-const { default: NodeLabel } = _NodeLabel;
+const { default: NodeTitle } = _NodeTitle;
 const BaseExample = () => {
-  return <NodeLabel node={{ title: '默认Label' }} />;
+  return <NodeTitle node={{ title: '默认Label' }} />;
 };
 
 render(<BaseExample />);

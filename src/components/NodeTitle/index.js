@@ -4,7 +4,7 @@ import { createWithRemoteLoader } from '@kne/remote-loader';
 
 import style from './style.module.scss';
 
-const NodeLabel = createWithRemoteLoader({
+const NodeTitle = createWithRemoteLoader({
   modules: ['Icon']
 })(({ remoteModules, node, ...props }) => {
   const [Icon] = remoteModules;
@@ -69,4 +69,4 @@ const NodeLabel = createWithRemoteLoader({
   );
 });
 
-export default NodeLabel;
+export default NodeTitle;
