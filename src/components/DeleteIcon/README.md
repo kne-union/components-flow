@@ -1,5 +1,5 @@
 
-# NodeDelete
+# DeleteIcon
 
 
 ### 概述
@@ -13,12 +13,12 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _NodeDelete(@components/NodeDelete)
+- _DeleteIcon(@components/DeleteIcon)
 
 ```jsx
-const { default: NodeDelete } = _NodeDelete;
+const { default: DeleteIcon } = _DeleteIcon;
 const BaseExample = () => {
-  return <NodeDelete />;
+  return <DeleteIcon />;
 };
 
 render(<BaseExample />);

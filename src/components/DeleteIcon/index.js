@@ -1,7 +1,7 @@
 import style from './style.module.scss';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 
-const NodeDelete = createWithRemoteLoader({
+const DeleteIcon = createWithRemoteLoader({
   modules: ['Icon', 'Tooltip']
 })(({ remoteModules, ...props }) => {
   const [Icon] = remoteModules;
@@ -19,4 +19,4 @@ const NodeDelete = createWithRemoteLoader({
   );
 });
 
-export default NodeDelete;
+export default DeleteIcon;

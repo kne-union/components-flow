@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 // import NodeTooltip from "@components/WorkFlow/nodeTooltip";
 import NodeCondition from '@components/ConditionNode';
-import NodeDelete from '@components/NodeDelete';
+import DeleteIcon from '@components/DeleteIcon';
 import NodeLabel from '@components/NodeLabel';
 import classnames from 'classnames';
 import style from './style.module.scss';
@@ -24,7 +24,7 @@ const BasicNode = createWithRemoteLoader({
       <div className={style['node']}>
         <div className={style['node-title']}>
           <NodeLabel {...props} />
-          <NodeDelete {...props} data={data} />
+          <DeleteIcon {...props} data={data} />
         </div>
         <div
           className={style['node-content']}

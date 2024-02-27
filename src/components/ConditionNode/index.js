@@ -2,7 +2,7 @@ import style from './style.module.scss';
 import { get } from 'lodash';
 import classnames from 'classnames';
 import NodeLabel from '@components/NodeLabel';
-import NodeDelete from '@components/NodeDelete';
+import DeleteIcon from '@components/DeleteIcon';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 
 const ConditionNode = createWithRemoteLoader({
@@ -31,7 +31,7 @@ const ConditionNode = createWithRemoteLoader({
           )}
           <div className={style['condition-right']}>
             <span className={classnames(style['condition-priority'], style['ellipse'])}>优先级1</span>
-            {get(data, 'type') !== 'default' && <NodeDelete {...props} data={data} />}
+            {get(data, 'type') !== 'default' && <DeleteIcon {...props} data={data} />}
           </div>
         </div>
         <div
