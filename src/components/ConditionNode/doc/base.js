@@ -14,8 +14,8 @@ const style = {
 const BaseExample = () => {
   return (
     <Space style={style}>
-      <ConditionNode data={{ label: '条件1', content: '' }} />
-      <ConditionNode data={{ label: '默认条件', content: '其他条件进入此流程', type: 'default' }} />
+      <ConditionNode node={{ title: '条件1', content: '' }} />
+      <ConditionNode node={{ title: '默认条件', content: '其他条件进入此流程', type: 'default' }} />
     </Space>
   );
 };

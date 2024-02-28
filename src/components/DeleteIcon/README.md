@@ -1,10 +1,10 @@
 
-# NodeLabel
+# DeleteIcon
 
 
 ### 概述
 
-节点Label
+删除节点
 
 
 ### 示例
@@ -13,12 +13,12 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _NodeLabel(@components/NodeLabel)
+- _DeleteIcon(@components/DeleteIcon)
 
 ```jsx
-const { default: NodeLabel } = _NodeLabel;
+const { default: DeleteIcon } = _DeleteIcon;
 const BaseExample = () => {
-  return <NodeLabel data={{ label: '默认Label' }} />;
+  return <DeleteIcon />;
 };
 
 render(<BaseExample />);

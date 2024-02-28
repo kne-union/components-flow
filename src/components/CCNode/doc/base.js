@@ -1,4 +1,4 @@
-const { default: BasicNode } = _BasicNode;
+const { default: CCNode } = _CCNode;
 const { Space } = _antd;
 
 const nodeWidth = 200;
@@ -14,8 +14,8 @@ const style = {
 const BaseExample = () => {
   return (
     <Space style={style}>
-      <BasicNode node={{ title: 'BasicNode1', content: '' }} />
-      <BasicNode node={{ title: 'BasicNode2', content: 'BasicNode' }} />
+      <CCNode node={{ title: 'CCNode1', content: '' }} />
+      <CCNode node={{ title: 'CCNode2', content: 'CCNode' }} />
     </Space>
   );
 };

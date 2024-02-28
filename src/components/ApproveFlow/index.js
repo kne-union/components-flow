@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import style from './style.module.scss';
 import FlowChart from '@components/FlowChart';
+import StartNode from '@components/StartNode';
 import BasicNode from '@components/BasicNode';
 import ConditionNode from '@components/ConditionNode';
 import { createWithRemoteLoader } from '@kne/remote-loader';
@@ -14,7 +15,7 @@ const Node = FlowChart.Node;
 
 const OptionsNode = createWithRemoteLoader({
   modules: ['components-core:Icon', 'components-core:Tooltip']
-})(({ remoteModules, id, node, children }) => {
+})(({ remoteModules, id, children }) => {
   const [Icon, Tooltip] = remoteModules;
   const { appendNode } = useContext();
   return (
@@ -125,8 +126,8 @@ const ApproveFlow = () => {
       return (
         <FlowChart
           label={
-            <OptionsNode id="root" node={nodeData}>
-              开始
+            <OptionsNode id={id}>
+              <StartNode node={nodeData} />
             </OptionsNode>
           }
           next={<Node label={'结束'} />}

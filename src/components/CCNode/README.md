@@ -1,10 +1,10 @@
 
-# ConditionNode
+# CCNode
 
 
 ### 概述
 
-条件节点
+抄送节点
 
 
 ### 示例
@@ -13,10 +13,10 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _ConditionNode(@components/ConditionNode),_antd(antd)
+- _CCNode(@components/CCNode),_antd(antd)
 
 ```jsx
-const { default: ConditionNode } = _ConditionNode;
+const { default: CCNode } = _CCNode;
 const { Space } = _antd;
 
 const nodeWidth = 200;
@@ -32,8 +32,8 @@ const style = {
 const BaseExample = () => {
   return (
     <Space style={style}>
-      <ConditionNode node={{ title: '条件1', content: '' }} />
-      <ConditionNode node={{ title: '默认条件', content: '其他条件进入此流程', type: 'default' }} />
+      <CCNode node={{ title: 'CCNode1', content: '' }} />
+      <CCNode node={{ title: 'CCNode2', content: 'CCNode' }} />
     </Space>
   );
 };

@@ -1,29 +1,30 @@
-import { createWithRemoteLoader } from '@kne/remote-loader';
+import classnames from 'classnames';
 import DeleteIcon from '@components/DeleteIcon';
 import NodeTitle from '@components/NodeTitle';
-import classnames from 'classnames';
+import { createWithRemoteLoader } from '@kne/remote-loader';
+
 import style from './style.module.scss';
 
-const BasicNode = createWithRemoteLoader({
+const CCNode = createWithRemoteLoader({
   modules: ['components-core:Icon']
 })(({ remoteModules, node, ...props }) => {
   const [Icon] = remoteModules;
-  const { content, isError } = node;
+  const { content, isError } = node || {};
 
   return (
     <div className={classnames(style['node-wrapper'], isError ? style['error'] : null)}>
       <div className={style['node']}>
         <div className={style['node-title']}>
-          <NodeTitle node={node} {...props} />
-          <DeleteIcon {...props} />
+          <NodeTitle {...props} node={node} />
+          <DeleteIcon {...props} node={node} />
         </div>
         <div
           className={style['node-content']}
           onClick={() => {
-            console.log('on basic node click...');
+            console.log('on cc node click...');
           }}
         >
-          {content ? <span className={classnames(style['node-title-label'], style['ellipse'])}>{content}</span> : <span className={style['placeholder']}>请选择审批人</span>}
+          {content ? <span className={classnames(style['node-title-label'], style['ellipse'])}>{content}</span> : <span className={style['placeholder']}>请选择抄送人</span>}
           <Icon className={style['content-right-icon']} type="icon-arrow-thin-right" />
         </div>
       </div>
@@ -32,9 +33,4 @@ const BasicNode = createWithRemoteLoader({
   );
 });
 
-BasicNode.defaultProps = {
-  isError: false,
-  node: {}
-};
-
-export default BasicNode;
+export default CCNode;

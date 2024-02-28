@@ -1,26 +1,24 @@
 import style from './style.module.scss';
-import { get } from 'lodash';
 import classnames from 'classnames';
-import NodeLabel from '@components/NodeLabel';
-import NodeDelete from '@components/NodeDelete';
+import NodeTitle from '@components/NodeTitle';
+import DeleteIcon from '@components/DeleteIcon';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 
 const ConditionNode = createWithRemoteLoader({
   modules: ['Icon', 'Tooltip']
-})(({ remoteModules, ...props }) => {
+})(({ remoteModules, node, ...props }) => {
   const [Icon, Tooltip] = remoteModules;
-  const { data } = props;
-  const { label, content } = data || {};
+  const { title, content, type, isError } = node;
   return (
-    <div className={classnames(style['condition-node-wrapper'], data?.isError ? style['error'] : null)}>
+    <div className={classnames(style['condition-node-wrapper'], isError ? style['error'] : null)}>
       <div className={style['node']}>
         <div className={style['node-title']}>
-          {get(data, 'type') !== 'default' ? (
-            <NodeLabel {...props} />
+          {type !== 'default' ? (
+            <NodeTitle node={node} />
           ) : (
             <div className={classnames(style['node-title-label'], style['ellipse'])}>
-              {label}
-              {get(data, 'type') === 'default' && (
+              {title}
+              {type === 'default' && (
                 <Tooltip overlayClassName={style['tooltip']} content={<div className={classnames(style['tooltip-inner'], style['tooltip-inner-yiwen'])}>当未满足其他条件时，系统自动创建默认条件，确保条件分支完整</div>}>
                   <span className={style['node-yiwen-icon']}>
                     <Icon type="icon-yiwen" />
@@ -31,7 +29,7 @@ const ConditionNode = createWithRemoteLoader({
           )}
           <div className={style['condition-right']}>
             <span className={classnames(style['condition-priority'], style['ellipse'])}>优先级1</span>
-            {get(data, 'type') !== 'default' && <NodeDelete {...props} data={data} />}
+            {type !== 'default' && <DeleteIcon {...props} />}
           </div>
         </div>
         <div
@@ -41,12 +39,17 @@ const ConditionNode = createWithRemoteLoader({
           }}
         >
           {content ? <span className={style['ellipse']}>{content}</span> : <span className={style['placeholder']}>请设置条件</span>}
-          {get(data, 'type') !== 'default' && <Icon className={style['content-right-icon']} type="icon-arrow-thin-right" />}
+          {type !== 'default' && <Icon className={style['content-right-icon']} type="icon-arrow-thin-right" />}
         </div>
       </div>
-      {get(data, 'isError') && <div className="error-message">不能为空</div>}
+      {isError && <div className={style['error-message']}>不能为空</div>}
     </div>
   );
 });
+
+ConditionNode.defaultProps = {
+  type: 'default',
+  isError: false
+};
 
 export default ConditionNode;

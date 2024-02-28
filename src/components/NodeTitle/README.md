@@ -1,10 +1,10 @@
 
-# NodeDelete
+# NodeTitle
 
 
 ### 概述
 
-删除节点
+节点Label
 
 
 ### 示例
@@ -13,12 +13,12 @@
 
 - 这里填写示例标题
 - 这里填写示例说明
-- _NodeDelete(@components/NodeDelete)
+- _NodeTitle(@components/NodeTitle)
 
 ```jsx
-const { default: NodeDelete } = _NodeDelete;
+const { default: NodeTitle } = _NodeTitle;
 const BaseExample = () => {
-  return <NodeDelete />;
+  return <NodeTitle node={{ title: '默认Label' }} />;
 };
 
 render(<BaseExample />);

@@ -1,4 +1,4 @@
-.condition-node-wrapper {
+.node-wrapper {
   .node {
     width: var(--node-width);
     height: var(--node-height);
@@ -9,11 +9,6 @@
     &:hover {
       border: 1px solid var(--primary-color);
       box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
-
-      .node-delete,
-      .node-edit {
-        display: inline-block;
-      }
     }
   }
 
@@ -44,62 +39,32 @@
     padding: 16px;
   }
 
-  .placeholder {
-    color: var(--font-color-grey-2);
-  }
-
-  .node-title-label {
-    width: max-content;
-  }
-
-  .ellipse {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: var(--ellipse-rows, 1);
-    -webkit-box-orient: vertical;
-    flex-grow: 1;
-    word-break: break-all;
-  }
-
-  .node-yiwen-icon {
-    margin-left: 4px;
-    color: #434343;
-  }
-
-  .condition-right {
-    padding-left: 4px;
-    display: inline-flex;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
-
-  .condition-priority {
-    min-width: 54px;
-    text-align: right;
-    //display: inline-block;
-  }
-
-  .node {
-    .node-title {
-      background: #ffffff;
-      color: var(--font-color);
-    }
-  }
-
   &.error {
     .node {
       border: 1px solid var(--color-warning);
+
       .node-title {
-        background: #ffffff;
+        background: var(--color-warning);
+        border-bottom: 1px solid var(--color-warning);
       }
     }
   }
 }
 
-.error-message {
-  color: #ff0000;
-  position: absolute;
-  left: 0;
-  top: calc(var(--node-height) + 4px);
+.placeholder {
+  color: var(--font-color-grey-2);
+}
+
+.node-title-label {
+  width: max-content;
+}
+
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--ellipse-rows, 1);
+  -webkit-box-orient: vertical;
+  flex-grow: 1;
+  word-break: break-all;
 }
