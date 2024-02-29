@@ -1,0 +1,12 @@
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--ellipse-rows, 1);
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+.node-edit {
+  cursor: pointer;
+}
