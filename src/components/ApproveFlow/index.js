@@ -2,12 +2,11 @@ import { useState } from 'react';
 import style from './style.module.scss';
 import FlowChart from '@components/FlowChart';
 import StartNode from '@components/StartNode';
-import BasicNode from '@components/BasicNode';
-import ConditionNode from '@components/ConditionNode';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 import { Button, Space } from 'antd';
 import { Provider, useContext } from './context';
 import clone from 'lodash/clone';
+import nodeTypes from './nodeTypes';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -15,12 +14,12 @@ const Node = FlowChart.Node;
 
 const OptionsNode = createWithRemoteLoader({
   modules: ['components-core:Icon', 'components-core:Tooltip']
-})(({ remoteModules, id, children }) => {
+})(({ remoteModules, id, children, isEnd }) => {
   const [Icon, Tooltip] = remoteModules;
   const { appendNode } = useContext();
   return (
     <div className={style['options-node']}>
-      {children}
+      {!isEnd && children}
       <Tooltip
         placement="right"
         content={
@@ -30,7 +29,7 @@ const OptionsNode = createWithRemoteLoader({
                 appendNode(
                   {
                     title: '新审批节点',
-                    type: 'approve'
+                    nodeType: 'basic'
                   },
                   id,
                   'next'
@@ -44,7 +43,7 @@ const OptionsNode = createWithRemoteLoader({
                 appendNode(
                   {
                     title: '新抄送节点',
-                    type: 'cc'
+                    nodeType: 'cc'
                   },
                   id,
                   'next'
@@ -58,7 +57,7 @@ const OptionsNode = createWithRemoteLoader({
                 appendNode(
                   {
                     title: '新条件分支',
-                    type: 'conditions'
+                    nodeType: 'condition'
                   },
                   id,
                   'conditions'
@@ -72,6 +71,7 @@ const OptionsNode = createWithRemoteLoader({
       >
         <Button className={style['add-btn']} size="small" icon={<Icon type="tianjia" />} />
       </Tooltip>
+      {isEnd && children}
     </div>
   );
 });
@@ -80,7 +80,12 @@ const ApproveFlow = () => {
    * 用数组保存flow数据
    *  conditions
    * */
-  const [flowData, setFlowData] = useState(new Map([['root', { id: 'root', title: '开始' }]]));
+  const [flowData, setFlowData] = useState(
+    new Map([
+      ['root', { id: 'root', title: '发起人', content: '发起人' }],
+      ['end', { id: 'end', title: '结束', content: '结束' }]
+    ])
+  );
 
   //conditions next
   const appendNode = (node, parentId = 'root', appendType = 'next') => {
@@ -94,9 +99,17 @@ const ApproveFlow = () => {
 
         const pNode = flowData.get(parentId);
         const currentNodeNext = pNode.next || [];
-
-        if (appendType === 'conditions' && !(currentNodeNext[0] && flowData.get(currentNodeNext[0])?.type !== 'conditions')) {
-          currentNodeNext.push(id);
+        if (appendType === 'conditions' && (!currentNodeNext.length || flowData.get(currentNodeNext[0])?.nodeType !== 'condition')) {
+          setTimeout(() => {
+            appendNode(Object.assign({}, node, { type: 'default', title: '默认条件', content: '其他条件进入此流程' }), parentId, appendType);
+          }, 0);
+        }
+        if (appendType === 'conditions' && !(currentNodeNext[0] && flowData.get(currentNodeNext[0])?.nodeType !== 'condition')) {
+          if (currentNodeNext?.length > 1) {
+            currentNodeNext.splice(currentNodeNext?.length - 1, 0, id);
+          } else {
+            currentNodeNext.push(id);
+          }
           newFlowData.set(parentId, Object.assign({}, pNode, { next: currentNodeNext }));
           newFlowData.set(id, Object.assign({}, node, { id, parentId }));
           return;
@@ -123,25 +136,37 @@ const ApproveFlow = () => {
     const children = (nodeData.next || []).map(nextId => renderNode(nextId));
 
     if (id === 'root') {
+      const endNodeData = flowData.get('end');
       return (
         <FlowChart
           label={
-            <OptionsNode id={id}>
+            <OptionsNode id={id} node={nodeData}>
               <StartNode node={nodeData} />
             </OptionsNode>
           }
-          next={<Node label={'结束'} />}
+          next={
+            [...flowData.values()].filter(item => !item?.next?.length)?.length > 1 ? (
+              <OptionsNode isEnd id={'end'} node={endNodeData}>
+                <StartNode node={endNodeData} />
+              </OptionsNode>
+            ) : (
+              <Node id={'end'}>
+                <StartNode node={endNodeData} />
+              </Node>
+            )
+          }
         >
           {children}
         </FlowChart>
       );
     }
+    const RenderNode = nodeTypes?.[nodeData.nodeType || 'basic'];
     return (
       <Node
         key={id}
         label={
           <OptionsNode id={id} node={nodeData}>
-            {nodeData.title || '新建节点'}
+            <RenderNode node={nodeData} />
           </OptionsNode>
         }
       >
@@ -154,6 +179,7 @@ const ApproveFlow = () => {
     <Provider
       value={{
         flowData,
+        setFlowData,
         appendNode
       }}
     >

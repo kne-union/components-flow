@@ -9,6 +9,7 @@ const ConditionNode = createWithRemoteLoader({
 })(({ remoteModules, node, ...props }) => {
   const [Icon, Tooltip] = remoteModules;
   const { title, content, type, isError } = node;
+
   return (
     <div className={classnames(style['condition-node-wrapper'], isError ? style['error'] : null)}>
       <div className={style['node']}>
@@ -29,7 +30,7 @@ const ConditionNode = createWithRemoteLoader({
           )}
           <div className={style['condition-right']}>
             <span className={classnames(style['condition-priority'], style['ellipse'])}>优先级1</span>
-            {type !== 'default' && <DeleteIcon {...props} />}
+            {type !== 'default' && <DeleteIcon node={node} {...props} />}
           </div>
         </div>
         <div

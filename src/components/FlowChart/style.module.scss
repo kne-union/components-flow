@@ -36,6 +36,8 @@
 .end-container {
   @extend .children-container;
   padding-top: calc(var(--tree-line-height) * 2);
+  display: flex;
+  justify-content: center;
 
   &:before {
     top: var(--tree-line-height);

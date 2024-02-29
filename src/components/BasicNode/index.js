@@ -15,7 +15,7 @@ const BasicNode = createWithRemoteLoader({
       <div className={style['node']}>
         <div className={style['node-title']}>
           <NodeTitle node={node} {...props} />
-          <DeleteIcon {...props} />
+          <DeleteIcon node={node} {...props} />
         </div>
         <div
           className={style['node-content']}
