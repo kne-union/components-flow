@@ -3,6 +3,8 @@ import { Space, Input } from 'antd';
 import { createWithRemoteLoader } from '@kne/remote-loader';
 
 import style from './style.module.scss';
+import { useContext } from '../ApproveFlow/context';
+import clone from 'lodash/clone';
 
 const NodeTitle = createWithRemoteLoader({
   modules: ['Icon']
@@ -11,8 +13,16 @@ const NodeTitle = createWithRemoteLoader({
   const inputRef = useRef();
   const [toggle, setToggle] = useState(false);
   const [title, setTitle] = useState(node?.title);
+
+  const { setFlowData } = useContext();
+
   const onUpdateNodeTitle = value => {
     setTitle(value);
+    setFlowData(flowData => {
+      const newFlowData = clone(flowData);
+      newFlowData.set(node.id, Object.assign({}, node, { title: value }));
+      return newFlowData;
+    });
   };
   useEffect(() => {
     setTitle(node.title);
