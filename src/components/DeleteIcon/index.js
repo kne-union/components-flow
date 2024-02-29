@@ -14,7 +14,7 @@ const DeleteIcon = createWithRemoteLoader({
     setFlowData(flowData => {
       const pNode = flowData.get(node.parentId);
       const newFlowData = clone(flowData);
-      if (node.nodeType === 'conditions') {
+      if (node.nodeType === 'condition') {
         if (pNode.next?.length > 2) {
           newFlowData.set(node.parentId, Object.assign({}, pNode, { next: pNode.next.filter(item => item !== node.id) }));
           newFlowData.delete(node.id);
@@ -23,6 +23,9 @@ const DeleteIcon = createWithRemoteLoader({
           newFlowData.set(node.parentId, Object.assign({}, pNode, { next: [] }));
           pNode.next.forEach(item => newFlowData.delete(item));
         }
+      } else {
+        newFlowData.set(node.parentId, Object.assign({}, pNode, { next: node?.next || [] }));
+        newFlowData.delete(node.id);
       }
       return newFlowData;
     });
