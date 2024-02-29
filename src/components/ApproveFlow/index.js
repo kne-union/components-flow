@@ -14,12 +14,12 @@ const Node = FlowChart.Node;
 
 const OptionsNode = createWithRemoteLoader({
   modules: ['components-core:Icon', 'components-core:Tooltip']
-})(({ remoteModules, id, children }) => {
+})(({ remoteModules, id, children, isEnd }) => {
   const [Icon, Tooltip] = remoteModules;
   const { appendNode } = useContext();
   return (
     <div className={style['options-node']}>
-      {children}
+      {!isEnd && children}
       <Tooltip
         placement="right"
         content={
@@ -71,6 +71,7 @@ const OptionsNode = createWithRemoteLoader({
       >
         <Button className={style['add-btn']} size="small" icon={<Icon type="tianjia" />} />
       </Tooltip>
+      {isEnd && children}
     </div>
   );
 });
@@ -79,7 +80,12 @@ const ApproveFlow = () => {
    * 用数组保存flow数据
    *  conditions
    * */
-  const [flowData, setFlowData] = useState(new Map([['root', { id: 'root', title: '发起人', content: '发起人' }]]));
+  const [flowData, setFlowData] = useState(
+    new Map([
+      ['root', { id: 'root', title: '发起人', content: '发起人' }],
+      ['end', { id: 'end', title: '结束', content: '结束' }]
+    ])
+  );
 
   //conditions next
   const appendNode = (node, parentId = 'root', appendType = 'next') => {
@@ -93,8 +99,10 @@ const ApproveFlow = () => {
 
         const pNode = flowData.get(parentId);
         const currentNodeNext = pNode.next || [];
-        if (appendType === 'conditions' && !currentNodeNext.length) {
-          appendNode(Object.assign({}, node, { type: 'default', title: '默认条件', content: '其他条件进入此流程' }), parentId, appendType);
+        if (appendType === 'conditions' && (!currentNodeNext.length || flowData.get(currentNodeNext[0])?.nodeType !== 'condition')) {
+          setTimeout(() => {
+            appendNode(Object.assign({}, node, { type: 'default', title: '默认条件', content: '其他条件进入此流程' }), parentId, appendType);
+          }, 0);
         }
         if (appendType === 'conditions' && !(currentNodeNext[0] && flowData.get(currentNodeNext[0])?.nodeType !== 'condition')) {
           if (currentNodeNext?.length > 1) {
@@ -128,6 +136,7 @@ const ApproveFlow = () => {
     const children = (nodeData.next || []).map(nextId => renderNode(nextId));
 
     if (id === 'root') {
+      const endNodeData = flowData.get('end');
       return (
         <FlowChart
           label={
@@ -135,7 +144,17 @@ const ApproveFlow = () => {
               <StartNode node={nodeData} />
             </OptionsNode>
           }
-          next={<Node label={'结束'} />}
+          next={
+            [...flowData.values()].filter(item => !item?.next?.length)?.length > 1 ? (
+              <OptionsNode isEnd id={'end'} node={endNodeData}>
+                <StartNode node={endNodeData} />
+              </OptionsNode>
+            ) : (
+              <Node id={'end'}>
+                <StartNode node={endNodeData} />
+              </Node>
+            )
+          }
         >
           {children}
         </FlowChart>
